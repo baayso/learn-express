@@ -1,13 +1,18 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET user listing. */
+var userService = require('../services/user');
+
+
 router.get('/', function (req, res, next) {
-    res.render('user', {
-        title: '基本例子',
-        isAdmin: true,
-        list: ['文艺', '博客', '摄影', '电影', '民谣', '旅行', '吉他']
-    });
+    res.send("中文最牛逼！");
+});
+
+/* GET user listing. */
+router.get('/list', function (req, res, next) {
+    var users = userService.list();
+
+    res.render('user', users);
 });
 
 module.exports = router;
