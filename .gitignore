@@ -12,6 +12,9 @@
 .idea
 out
 
+# node.js
+node_modules
+
 # Windows #
 Thumbs.db
 
