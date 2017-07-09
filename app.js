@@ -4,6 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+var RedisStore = require('connect-redis')(session);
 
 var index = require('./routes/index');
 var user = require('./routes/user');
@@ -23,7 +25,22 @@ app.set('view engine', 'art');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(cookieParser());
+app.use(cookieParser('baayso'));
+app.use(session({
+    store: new RedisStore({
+        host: "127.0.0.1",
+        port: 6379
+    }),
+    resave: false, // 是否每次都重新保存会话，建议false
+    saveUninitialized: false, // 是否自动保存未初始化的会话，建议false
+    secret: 'baayso',
+    cookie: {
+        path: '/',
+        secure: false,
+        httpOnly: true,
+        maxAge: 60 * 1000 * 30 // 过期时间（毫秒）
+    }
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);

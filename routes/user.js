@@ -1,7 +1,7 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-var userService = require('../services/user');
+const userService = require('../services/user');
 
 
 router.get('/', function (req, res, next) {
@@ -10,7 +10,7 @@ router.get('/', function (req, res, next) {
 
 /* GET user listing. */
 router.get('/list', function (req, res, next) {
-    var users = userService.list();
+    let users = userService.list();
 
     res.render('user', users);
 });

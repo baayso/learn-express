@@ -1,4 +1,4 @@
-var userService = {};
+const userService = {};
 
 userService.list = function () {
     return {
