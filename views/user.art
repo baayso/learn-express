@@ -1,4 +1,4 @@
-{{extend './layout'}}
+{{extend './backend-layout'}}
 
 {{block 'title'}}{{title}}{{/block}}
 
