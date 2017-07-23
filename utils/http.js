@@ -7,11 +7,12 @@ http.get = function*(url) {
         return request.get(url, function (error, response, body) {
             if (error) {
                 console.log('error:', error);
+
                 reject(error);
             }
             else {
-                console.log('statusCode:', response && response.statusCode);
-                console.log('body:', body);
+                // console.log('statusCode:', response && response.statusCode);
+                // console.log('body:', body);
 
                 resolve(body);
             }
