@@ -7,6 +7,6 @@
         <a href="mailto:xianxin@layui.com">联系</a>
         <a href="http://fly.layui.com/jie/4281.html" target="_blank">Git仓库</a>
         <a href="http://fly.layui.com/jie/2461.html" target="_blank">微信公众号</a>
-        <a href="http://fly.layui.com/jie/2461.html" target="_blank">{{title}}</a>
+        <a href="javascript: alert('{{title}}');">{{title}}</a>
     </p>
 </div>
