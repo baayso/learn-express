@@ -1,7 +1,5 @@
 const uploadService = {};
 
-const co = require('co');
-
 const ejsExcel = require('ejsexcel');
 
 

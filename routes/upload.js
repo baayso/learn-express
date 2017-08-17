@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-const ejsExcel = require('ejsexcel');
-
 const multer = require('multer');
 const upload = multer();
 
