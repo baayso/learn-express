@@ -19,6 +19,22 @@
     <div class="layui-body">
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">内容主体区域</div>
+
+        <div class="layui-btn-group demoTable" style="padding-left: 20px">
+            <button class="layui-btn" data-type="getCheckData">获取选中行数据</button>
+            <button class="layui-btn" data-type="getCheckLength">获取选中数目</button>
+            <button class="layui-btn" data-type="isAll">验证是否全选</button>
+        </div>
+
+        <div style="padding: 20px">
+            <table id="dt_demo"></table>
+        </div>
+
+        <script type="text/html" id="barDemo">
+            <a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="detail">查看</a>
+            <a class="layui-btn layui-btn-mini" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="del">删除</a>
+        </script>
     </div>
 
     <div class="layui-footer">
@@ -30,8 +46,118 @@
 {{block 'script'}}
 <script>
     //JavaScript代码区域
-    layui.use('element', function () {
-        var element = layui.element;
+    layui.use(['table', 'layer'], function () {
+        var table = layui.table;
+
+        //执行渲染
+        table.render({
+            id: 'dt_1' // 设定容器唯一ID，用于区分多个数据表格
+            , elem: '#dt_demo' // 指定原始表格元素选择器（推荐id选择器）
+            , url: '/layui/table/user'
+            , where: {
+                token: 'sasasas',
+                other: 123
+            }
+            , method: 'post'
+            , height: 315 // 容器高度
+            , page: true
+            , limits: [10, 30, 60, 100, 150, 300]
+            , limit: 10 // 默认采用60
+            , loading: true
+            // , skin: 'line'
+            , cols: [[ // 设置表头
+                {checkbox: true, fixed: 'right'}
+                , {field: 'id', title: 'ID', width: 80, sort: true}
+                , {field: 'username', title: '用户名', width: 80}
+                , {field: 'sex', title: '性别', width: 80, sort: true}
+                , {field: 'city', title: '城市', width: 80}
+                , {field: 'experience', title: '积分', width: 80, sort: true}
+                , {field: 'classify', title: '职业', width: 80}
+                , {field: 'wealth', title: '财富', width: 135, sort: true}
+                , {field: 'score', title: '评分', width: 80, sort: true}
+                , {field: 'sign', title: '签名', width: 177}
+                , {fixed: 'right', title: '', width: 160, align: 'center', toolbar: '#barDemo'}
+            ]]
+            , done: function (res, curr, count) {
+                // 如果是异步请求数据方式，res即为你接口返回的信息。
+                // 如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+                console.log(res);
+
+                // 得到当前页码
+                console.log(curr);
+
+                // 得到数据总量
+                console.log(count);
+            }
+        });
+
+        //监听表格复选框选择
+        table.on('checkbox(dt_1)', function (obj) {
+            console.log(obj)
+        });
+
+        // 监听工具条
+        table.on('tool(dt_1)', function (obj) { // 注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            var data = obj.data; // 获得当前行数据
+            var layEvent = obj.event; // 获得 lay-event 对应的值
+            var tr = obj.tr; // 获得当前行 tr 的DOM对象
+
+            if (layEvent === 'detail') { // 查看
+                layer.msg('ID：' + data.id + ' 的查看操作');
+            }
+            else if (layEvent === 'del') { // 删除
+                layer.confirm('真的删除行么', function (index) {
+                    obj.del(); // 删除对应行（tr）的DOM结构
+                    layer.close(index);
+                    // 向服务端发送删除指令
+                });
+            }
+            else if (layEvent === 'edit') { // 编辑
+                layer.alert('编辑行：<br>' + JSON.stringify(data));
+
+                // 同步更新缓存对应的值
+                obj.update({
+                    username: '123'
+                    , title: 'xxx'
+                });
+            }
+        });
+
+        var $ = layui.$, active = {
+            getCheckData: function () {
+                var checkStatus = table.checkStatus('dt_1')
+                    , data = checkStatus.data;
+                layer.alert(JSON.stringify(data));
+            }
+            , getCheckLength: function () {
+                var checkStatus = table.checkStatus('dt_1')
+                    , data = checkStatus.data;
+                layer.msg('选中了：' + data.length + ' 个');
+            }
+            , isAll: function () {
+                var checkStatus = table.checkStatus('dt_1');
+                layer.msg(checkStatus.isAll ? '全选' : '未全选')
+            }
+            , reload: function () {
+                var demoReload = $('#demoReload');
+
+                ins1.reload({
+                    where: {
+                        key: {
+                            id: demoReload.val()
+                        }
+                    }
+                });
+            }
+            , parseTable: function () {
+                table.init('parse-table-demo');
+            }
+        };
+
+        $('.demoTable .layui-btn').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
     });
 </script>
 {{/block}}
