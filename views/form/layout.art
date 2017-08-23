@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{{block 'title'}}Layout{{/block}}</title>
+    <title>{{block 'title'}}layout 后台布局 - Layui{{/block}}</title>
 
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -24,7 +24,7 @@
 {{block 'content'}}
 {{/block}}
 
-<script src="/libs/layui/lay/dest/layui.all.js" charset="utf-8"></script>
+<script src="/libs/layui/layui.all.js" charset="utf-8"></script>
 
 {{block 'script'}}
 {{/block}}
