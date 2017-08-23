@@ -10,6 +10,7 @@ var RedisStore = require('connect-redis')(session);
 var index = require('./routes/index');
 var user = require('./routes/user');
 var form = require('./routes/form');
+var layui = require('./routes/layui');
 var demo = require('./routes/demo');
 var upload = require('./routes/upload');
 
@@ -49,6 +50,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/user', user);
 app.use('/form', form);
+app.use('/layui', layui);
 app.use('/demo', demo);
 app.use('/upload', upload);
 

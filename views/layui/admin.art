@@ -1,0 +1,37 @@
+{{extend './layout'}}
+
+{{block 'title'}}{{one.title}}{{/block}}
+
+{{block 'head'}}
+<link rel="stylesheet" href="custom.css">
+{{/block}}
+
+{{block 'content'}}
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        {{include './header.art'}}
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        {{include './menu.art'}}
+    </div>
+
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <div style="padding: 15px;">内容主体区域</div>
+    </div>
+
+    <div class="layui-footer">
+        {{include './footer.art', two}}
+    </div>
+</div>
+{{/block}}
+
+{{block 'script'}}
+<script>
+    //JavaScript代码区域
+    layui.use('element', function () {
+        var element = layui.element;
+    });
+</script>
+{{/block}}
