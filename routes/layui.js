@@ -15,7 +15,7 @@ router.get('/', function (req, res, next) {
 router.post('/table/user', function (req, res, next) {
     let params = {
         page: req.body.page,
-        limit: req.body.limit
+        limit: req.body.limit ? req.body.limit : 10
     };
 
     layuiService.find(params, function (result) {
