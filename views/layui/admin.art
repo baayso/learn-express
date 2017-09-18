@@ -3,7 +3,7 @@
 {{block 'title'}}{{one.title}}{{/block}}
 
 {{block 'head'}}
-<link rel="stylesheet" href="custom.css">
+<!--<link rel="stylesheet" href="custom.css">-->
 {{/block}}
 
 {{block 'content'}}
@@ -45,11 +45,11 @@
 
 {{block 'script'}}
 <script>
-    //JavaScript代码区域
+    // JavaScript代码区域
     layui.use(['table', 'layer'], function () {
         var table = layui.table;
 
-        //执行渲染
+        // 执行渲染
         table.render({
             id: 'dt_1' // 设定容器唯一ID，用于区分多个数据表格
             , elem: '#dt_demo' // 指定原始表格元素选择器（推荐id选择器）
@@ -59,24 +59,29 @@
                 other: 123
             }
             , method: 'post'
-            , height: 315 // 容器高度
+            , height: 415 // 容器高度
+            , width: 1100
             , page: true
             , limits: [10, 30, 60, 100, 150, 300]
             , limit: 10 // 默认采用60
             , loading: true
             // , skin: 'line'
             , cols: [[ // 设置表头
-                {checkbox: true, fixed: 'right'}
-                , {field: 'id', title: 'ID', width: 80, sort: true}
-                , {field: 'username', title: '用户名', width: 80}
-                , {field: 'sex', title: '性别', width: 80, sort: true}
-                , {field: 'city', title: '城市', width: 80}
-                , {field: 'experience', title: '积分', width: 80, sort: true}
-                , {field: 'classify', title: '职业', width: 80}
+//                {rownumbers: true, rowspan: 2}
+                {checkbox: true, fixed: true, rowspan: 2}
+                , {field: 'id', title: 'ID', width: 80, sort: true, rowspan: 2}
+                , {field: 'username', title: '用户名', width: 80, rowspan: 2}
+                , {field: 'sex', title: '性别', width: 80, sort: true, rowspan: 2}
+                , {field: 'city', title: '城市', width: 80, rowspan: 2}
+                , {align: 'center', title: '其他一', colspan: 2}
+                , {align: 'center', title: '其他二', colspan: 2}
+                , {field: 'sign', title: '签名', width: 177, rowspan: 2}
+                , {title: '操作', width: 160, align: 'center', toolbar: '#barDemo', rowspan: 2}
+            ], [
+                {field: 'classify', title: '职业', width: 80}
                 , {field: 'wealth', title: '财富', width: 135, sort: true}
+                , {field: 'experience', title: '积分', width: 80, sort: true}
                 , {field: 'score', title: '评分', width: 80, sort: true}
-                , {field: 'sign', title: '签名', width: 177}
-                , {fixed: 'right', title: '', width: 160, align: 'center', toolbar: '#barDemo'}
             ]]
             , done: function (res, curr, count) {
                 // 如果是异步请求数据方式，res即为你接口返回的信息。
