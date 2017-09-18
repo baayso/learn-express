@@ -3,7 +3,7 @@ const uploadService = {};
 const fs = require("fs");
 
 const ejsExcel = require('ejsexcel');
-const uuid = require('node-uuid');
+const uuid = require('uuid');
 
 
 uploadService.import = function (buffer, params, callback) {

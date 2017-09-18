@@ -14,6 +14,7 @@ out
 
 # node.js
 node_modules
+package-lock.json
 
 # Windows #
 Thumbs.db
